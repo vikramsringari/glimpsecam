@@ -12,4 +12,10 @@ In order to view the API you must have Django and Python environments installed 
   The username is "Dylan Rose" and the password is "isourboss"
   This page is still incomplete but will eventually show information about each camera, battery life, images taken, videos taken, data used, etc.
   This page will also show a complete list of EVERY single image and video that has been taken, giving the admin in charge access to everything for testing purposes
-  
+### Things that still need to be done
+* Connect the User Page and connect mode page to display the images that are in each user and the entire server
+* Have both EventPage.HTML and godMode.html display images via for loops from the data base in a aesthetically pleasing fashion
+* Make all html pages responsive to screen size 
+* *@media only screen and (min-width: 1024px)* for desktop pages
+* *@media only screen and (min-width: 481px)* for tablets
+* *@media only screen and (max-width: 480px)* for mobile phones
