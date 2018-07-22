@@ -83,6 +83,13 @@ input{
                     <input type="submit" value="Sign Up">
                 </form>
             </div>
+            {% if messages %}
+            <ul class="messages"> <!-- This is where all of the error messages would be printed-->
+                {% for message in messages %}
+                <li><p>{{ message }}</p></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             <div class="inputBox">
                 <form action="/login" method="POST">
                     {% csrf_token %}
