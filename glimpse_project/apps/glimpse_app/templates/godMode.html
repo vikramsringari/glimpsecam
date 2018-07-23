@@ -31,6 +31,33 @@
             <h1 class="centerHorizontal">GOD MODE</h1>
         </div>
         <div class="contentContainer">
+            <div class="allUserInformation">
+                <h2 class="centerHorizontal">All of the users that are registered in the Glimpsewear Database</h2>
+                <table>
+                    <tr>
+                        <th>ID</th> 
+                        <th>Name:</th>
+                        <th>Email Address:</th>
+                        <th>Phone Number</th>
+                        <th>Device Key</th>
+                        <th>Actions</th> 
+                    </tr>
+                    {% for user in users%}
+                    {% csrf_token %}
+                    <tr>
+                        <td>{{user.id}}</td>
+                        <td>{{user.full_name}}</td> 
+                        <td>{{user.email_address}}</td>
+                        <td>{{user.phone_number}}</td>
+                        <td>{{user.device_key_name}}</td>
+                        <td>
+                            <a href="/viewUserInfoGodMode/{{user.Id}}">View</a>
+                            <a href="/deleteUser/{{user.id}}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
             <!-- Put a for loop to loop through all of the cams that are in the database -->
             <!-- Displaying the number of images, the length of total videos, and how much data is has consumed -->
             <div class="camera">
