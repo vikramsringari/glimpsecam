@@ -52,8 +52,15 @@ def godModeCheck(request):
             return redirect('/')
 
 def godMode(request):
-    return render(request, "godMode.html")
+    context = {
+        'users': User.objects.all()
+    }
+    return render(request, "godMode.html", context)
 
 def logout(request):
     request.session.clear()
     return redirect('/')
+
+def deleteUser(request, user_id):
+    User.objects.get(id=user_id).delete()
+    return redirect('/godMode')
