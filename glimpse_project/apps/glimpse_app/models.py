@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
-import re, bcrypt
+import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')  
 PHONE_REGEX = re.compile(r'^(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})+$')
@@ -40,12 +40,12 @@ class User(models.Model):
     objects = UserManager()
 
 class Device(models.Model):
-    device_owner = models.ForeignKey(User, related_name="devices")
+    device_owner = models.ForeignKey(User, related_name="devices", on_delete=models.DO_NOTHING)
     device_key_name = models.CharField(max_length = 45)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Media(models.Model):
     media_type = models.CharField(max_length=10)# either jpeg, or mp4
-    uploader = models.ForeignKey(User, related_name="uploads")
+    uploader = models.ForeignKey(User, related_name="uploads", on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)

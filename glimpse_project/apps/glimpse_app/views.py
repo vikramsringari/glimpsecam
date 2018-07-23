@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.db import models
 from .models import User, Device
-import bcrypt
 from django.contrib import messages
 
 def index(request):
