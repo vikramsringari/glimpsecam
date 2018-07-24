@@ -1,13 +1,13 @@
 from __future__ import unicode_literals
 from django.db import models
-import re
+import re, bcrypt
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')  
 PHONE_REGEX = re.compile(r'^(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})+$')
 class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
-        if (len(postData['usersName']) <= 2) | (postData['usersName'].isalpha() != True):
+        if (len(postData['usersName']) <= 2): #| (postData['usersName'].isalpha() != True):
             errors['usersNames'] = ("Please Do Not Leave The Name Field Blank")
         if not EMAIL_REGEX.match(postData['usersEmail']):
             errors['emails'] = ("Please enter a valid email address")
@@ -15,6 +15,8 @@ class UserManager(models.Manager):
             errors['emails2'] = ("Please enter an email that hasn't been used already")
         if not PHONE_REGEX.match(postData['usersPhone']):
             errors['phone'] = ("Please enter a valid phone number")
+        if User.objects.filter(device_key_name = postData['deviceNumber']):
+            errors['phone'] = ("This Device Number Has Already Been Taken")
         # if (len(postData['password']) <= 7):
         #     errors['passwords'] = ("Make sure your password is longer than 8 characters long")
         # if ((postData['password']) != (postData['checkPass'])):
