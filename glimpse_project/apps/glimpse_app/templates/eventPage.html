@@ -17,18 +17,30 @@
         width: 90%;
         border: 2px solid black;
     }
+img{
+    width: 30%;
+    margin-left: 2%;
+    margin-top: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 </style>
 </head>
 <body>
     <div id="container">
         <div class="header">
             <h1 class="centerHorizontal"> Howdy! {{name}}</h1> 
+            <a href="javascript:history.back()">Go Back</a>
             <a href="/logout">Logout</a>
         </div>
         <div class="showEverything">
             <h1 class="centerHorizontal"> All of {{name}}'s photos and videos</h1>
             <div class="allPhotos">
-            <!-- Here is where we will display all of the images and videos that are stored in the S3 Database -->
+            {% for image in this_user %}
+                {% if image.key != file_name %}
+                    {% csrf_token %}
+                <a href="/viewImage/{{image.key}}"><img src="https://s3.amazonaws.com/pi-1/{{image.key}}"></a>
+                {% endif%}
+            {% endfor %}
             </div>
         </div>
     </div>  
