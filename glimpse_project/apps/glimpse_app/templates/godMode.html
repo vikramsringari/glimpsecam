@@ -51,12 +51,20 @@
                         <td>{{user.phone_number}}</td>
                         <td>{{user.device_key_name}}</td>
                         <td>
-                            <a href="/viewUserInfoGodMode/{{user.Id}}">View</a>
+                            <a href="/viewUserInfoGodMode/{{user.device_key_name}}">View</a>
                             <a href="/deleteUser/{{user.id}}">Delete</a>
                         </td>
                     </tr>
                     {% endfor %}
                 </table>
+                <!-- Figure out why the first file being downloaded is just the name of the folder and not an image -->
+                {% for image in objects %}
+                    {% if image.key != "user1/" %} <!-- This gets rid of the folder image showing up as a blank image but only for the first folder "User1/" -->
+                    {% csrf_token %}
+                    {{image.bucket}}
+                    <a href="/viewImage/{{image.key}}"><img src="https://s3.amazonaws.com/pi-1/{{image.key}}" ></a>
+                    {% endif%}
+                {% endfor %}
             </div>
             <!-- Put a for loop to loop through all of the cams that are in the database -->
             <!-- Displaying the number of images, the length of total videos, and how much data is has consumed -->
