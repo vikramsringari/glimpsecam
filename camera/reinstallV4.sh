@@ -49,6 +49,7 @@ if [ $ANSWER -eq 2 -o $ANSWER -eq 6 -o $ANSWER -eq 7 ]; then
 	cd /home/pi
 	git clone https://github.com/billw2/pikrellcam
 	cd pikrellcam
+	chmod u+rwx install-pikrellcam.sh
 	./install-pikrellcam.sh
 fi
 
