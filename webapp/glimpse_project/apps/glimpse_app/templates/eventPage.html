@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Event Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+<style>
+.centerHorizontal{
+        text-align: center;
+}
+.showEverything{
+        margin: 3%;
+        background-color: blue;
+        width: 90%;
+        border: 2px solid black;
+}
+.displayContent{
+    width: 30%;
+    margin-left: 2%;
+    margin-top: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>
+</head>
+<body>
+    <div id="container">
+        <div class="header">
+            <h1 class="centerHorizontal"> Howdy! {{name}}</h1> 
+            <a href="javascript:history.back()">Go Back</a>
+            <a href="/logout">Logout</a>
+        </div>
+        <div class="showEverything">
+            <h1 class="centerHorizontal"> All of {{name}}'s photos and videos</h1>
+            <div class="allPhotos">
+            {% for image in this_user_images %}
+                {% if image.key != not_bucket_select_img %}
+                {% csrf_token %}
+                <a href="/viewImage/{{image.key}}"><img class="displayContent" src="https://s3.amazonaws.com/pi-1/{{image.key}}"></a>
+                {% endif %}
+            {% endfor %}
+            {% for video in this_user_videos %}
+                {% if video.key != not_bucket_select_vid %}
+                {% csrf_token %}
+                <video class="displayContent" controls>
+                    <source src="https://s3.amazonaws.com/pi-1/{{video.key}}" type="video/mp4" download="https://s3.amazonaws.com/pi-1/{{video.key}}">
+                </video>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>  
+</body>
+</html>
