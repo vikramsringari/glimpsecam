@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GlimpseCam Dashboard</title>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+    <!-- Optional theme --> 
+    <link rel="stylesheet" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript --> 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<style>
+*{
+    margin: 0px;
+    padding: 0px;
+}
+#container{
+    width: 100%;
+}
+.header{
+    height: 50px;
+    color: black;
+}
+.centerHorizontal{
+    text-align: center;
+}
+.sidebarOption{
+    font-size: 20px;
+    display: block;
+    border: 2px solid black;
+    margin-top: 5px;
+}
+input{
+    display: block;
+    margin: 10px;
+    position: relative;
+    left: 47%;
+}
+.mainContainer{
+    text-align: center; 
+}
+</style>
+<body>
+    <div id="container">
+        <div class="header">
+            <h1 class="centerHorizontal">GlimpseCam</h1>
+        </div>
+        <div class="mainContainer">
+            <div class="inputBox">
+                <form action="/registerPage" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Register Page">
+                </form>
+                <form action="/loginPage" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Login Page">
+                </form>
+                <form action="/adminLogin" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Admin Login">
+                </form>
+            </div>
+        <div class="footer">
+            <!-- 
+                Information about the company, contact, trademarks, links to homepage, facebook, instagram, etc
+             -->
+        </div>
+    </div>
+</body>
+</html>

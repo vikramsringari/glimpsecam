@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Event Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+<style>
+.centerHorizontal{
+        text-align: center;
+}
+.inputBox{
+    margin-top: 20px;
+    width: 150px;
+    height: 154px;
+    position: relative;
+    left: 40%;
+}
+input{
+    margin: 5px;
+}
+h5{
+    margin-left: 45px;
+}
+</style>
+</head>
+<body>
+    <div class="mainContainer">
+        <div class="inputBox">
+            <a href="/">Go Back</a>
+            <form action="/createUser" method="POST">
+                {% csrf_token %}
+                <h5>Register</h5>
+                <input type="text" placeholder="Enter Name" name="usersName">
+                <input type="email" placeholder="Enter Email" name="usersEmail">
+                <input type="text" placeholder="Enter Phone Number" name="usersPhone">
+                <input type="text" placeholder="Device Number" name="deviceNumber">
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+        {% if messages %}
+        <ul class="messages"> <!-- This is where all of the error messages would be printed-->
+            {% for message in messages %}
+            <li><p>{{ message }}</p></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+</body>
+</html>
