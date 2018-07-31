@@ -23,8 +23,8 @@ if [ -e boot1.zth ]; then
 	sudo rpi-update
 	touch boot2.zth
 	echo "Rebooting in 5 Seconds!"
-        sleep 5
-        sudo reboot
+    sleep 5
+    sudo reboot
 elif [ -e boot2.zth ]; then
 	echo "boot2.zth Exists"
 	echo "Continue Installation Process..."
@@ -46,9 +46,9 @@ elif [ -e boot2.zth ]; then
 	sudo depmod -a
 	sudo modprobe my_loader
 	touch boot3.zth
-        echo "Rebooting in 5 Seconds!"
-        sleep 5
-        sudo reboot
+    echo "Rebooting in 5 Seconds!"
+    sleep 5
+    sudo reboot
 elif [ -e boot3.zth ]; then
 	echo "boot3.zth Exists"
 	echo "Continue Installation Process..."
@@ -62,14 +62,14 @@ elif [ -e complete.zth ]; then
 	echo "The MEMS Microphone has already been installed!"
 else
 	echo ""
-        echo "-----------------------------"
-        echo "INSTALL MEMS Microphone"
-        echo "-----------------------------"
-        echo ""
+    echo "-----------------------------"
+    echo "INSTALL MEMS Microphone"
+    echo "-----------------------------"
+    echo ""
 	echo "Modifying /boot/config.txt..."
-        sudo sed -r "s/#dtparam=i2s=on/dtparam=i2s=on/g" /boot/config.txt > /boot/config.txt 
-        echo "Modifying /etc/modules..."
-        sudo echo "snd-bcm2835" >> /etc/modules
+    sudo sed -r "s/#dtparam=i2s=on/dtparam=i2s=on/g" /boot/config.txt > /boot/config.txt 
+    echo "Modifying /etc/modules..."
+    sudo echo "snd-bcm2835" >> /etc/modules
 	touch boot1.zth
 	echo "Rebooting in 5 Seconds!"
 	sleep 5
