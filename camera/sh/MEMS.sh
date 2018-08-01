@@ -11,7 +11,12 @@ echo "NOTE:"
 echo -e "PLEASE CLOSE ${RED}ALL ${NC}OTHER PROGRAMS."
 echo -e "MAKE SURE YOU RUN THIS SCRIPT AS ${RED}SUDO ${NC}USER."
 echo ""
-sleep 3
+
+read -p "Did you run the shell script as SUDO USER? (y/n) " ANSWER
+case "$ANSWER" in 
+	y|Y ) echo "";;
+	* ) exit 1;;
+esac
 
 cd /home/pi
 if [ -e boot1.zth ]; then
