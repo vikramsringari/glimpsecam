@@ -1,4 +1,4 @@
-sleep 30
+sleep 20
 ifconfig > ip-$(date +%F).txt
 aws s3 cp "ip.txt" s3://pi-1/
 while true
