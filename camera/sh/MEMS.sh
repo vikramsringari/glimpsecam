@@ -45,6 +45,7 @@ elif [ -e boot2.zth ]; then
 	echo 'my_loader' | sudo tee --append /etc/modules > /dev/null
 	sudo depmod -a
 	sudo modprobe my_loader
+	cd /home/pi
 	touch boot3.zth
     echo "Rebooting in 5 Seconds!"
     sleep 5
@@ -56,6 +57,7 @@ elif [ -e boot3.zth ]; then
 	wget https://raw.githubusercontent.com/vikramsringari/glimpsecam/master/camera/sh/asoundrc
 	sudo mv asoundrc ~/.asoundrc
 	timeout 3 arecord -D dmic_sv -c2 -r 44100 -f S32_LE -t wav -V mono -v file.wav
+	cd /home/pi
 	touch complete.zth
 	echo "Congratulations! The Installation of MEMS Microphone is Now Complete!"
 elif [ -e complete.zth ]; then
