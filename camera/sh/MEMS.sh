@@ -67,7 +67,7 @@ else
     echo "-----------------------------"
     echo ""
 	echo "Modifying /boot/config.txt..."
-    sudo sed -r "s/#dtparam=i2s=on/dtparam=i2s=on/g" /boot/config.txt > /boot/config.txt 
+    sudo sed -i '/#dtparam=i2s=on/c\dtparam=i2s=on' /boot/config.txt > /boot/config.txt 
     echo "Modifying /etc/modules..."
     sudo echo "snd-bcm2835" >> /etc/modules
 	touch boot1.zth
