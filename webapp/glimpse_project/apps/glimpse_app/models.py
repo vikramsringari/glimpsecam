@@ -37,6 +37,8 @@ class User(models.Model):
     email_address = models.CharField(max_length = 45)
     phone_number = models.CharField(max_length = 45)
     device_key_name = models.CharField(max_length=45)
+    number_pics = models.IntegerField()
+    number_vids = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
@@ -44,6 +46,8 @@ class User(models.Model):
 class Device(models.Model):
     device_owner = models.ForeignKey(User, related_name="devices")
     device_key_name = models.CharField(max_length = 45)
+    number_pics = models.IntegerField()
+    number_vids = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
