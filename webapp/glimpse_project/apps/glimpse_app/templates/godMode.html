@@ -78,7 +78,10 @@ video{
                         <th>Email Address:</th>
                         <th>Phone Number</th>
                         <th>Device Key</th>
-                        <th>Actions</th> 
+                        <th>Images#</th>
+                        <th>Video Length</th>
+                        <th>Low Battery</th>
+                        <th>Actions</th>
                     </tr>
                     {% for user in users%}
                     {% csrf_token %}
@@ -88,6 +91,9 @@ video{
                         <td>{{user.email_address}}</td>
                         <td>{{user.phone_number}}</td>
                         <td>{{user.device_key_name}}</td>
+                        <td>100</td>
+                        <td>2.3h</td>
+                        <td>FALSE</td>
                         <td>
                             <a href="/viewUserInfoGodMode/{{user.device_key_name}}">View</a>
                             <a href="/deleteUser/{{user.id}}">Delete</a>
@@ -99,6 +105,9 @@ video{
             <!-- Put a for loop to loop through all of the cams that are in the database -->
             <!-- Displaying the number of images, the length of total videos, and how much data is has consumed -->
         </div>
+        {% for battery in battery%}
+            {{battery}}
+        {%endfor%}
         <div class="cameraInfoContainer">
             <div class="camera">
                 <h6>Battery Length bar</h6>

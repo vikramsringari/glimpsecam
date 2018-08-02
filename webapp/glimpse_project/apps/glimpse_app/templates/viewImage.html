@@ -9,14 +9,46 @@
     <script src="main.js"></script> -->
 </head>
 <style>
-img{
+#mainImg{
     width: 95%;
-    margin: 2.5%;
+    margin-left: 2.5%;
+}
+.share-buttons{
+    width: 35px;
+    border: 0;
+    box-shadow: 0;
+    display: inline;
+    margin: 5px;
 }
 </style>
 <body>
     <a href="javascript:history.back()">Go Back</a>
-    <img src="https://s3.amazonaws.com/pi-1/{{image}}">
+    <img id="mainImg" src="https://s3.amazonaws.com/pi-1/{{image}}">
     <a href="https://s3.amazonaws.com/pi-1/{{image}}" download="https://s3.amazonaws.com/pi-1/{{image}}">Download</a>
+    <!-- Facebook -->
+    <a href="http://www.facebook.com/sharer.php?u=https://s3.amazonaws.com/pi-1/{{image}}" target="_blank">
+        <img class="share-buttons" src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+    </a>
+    <!-- Twitter needs some work on it-->
+    <a href="https://twitter.com/share?url=https://s3.amazonaws.com/pi-1/{{image}}" target="_blank">
+        <img class="share-buttons" src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+    </a>
+    <!-- Email -->
+    <a href="mailto:?Subject=Glimpse Headband Photo&amp;Body=Look%20at%20this%20awesome%20photo%20I%20took%20with%20my%20glimpse%20headband!%20 https://s3.amazonaws.com/pi-1/{{image}}">
+        <img class="share-buttons" src="https://simplesharebuttons.com/images/somacro/email.png" alt="Email" />
+    </a>
+    <!-- Google+ -->
+    <a href="https://plus.google.com/share?url=https://s3.amazonaws.com/pi-1/{{image}}" target="_blank">
+        <img class="share-buttons" src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+    </a>
+    <!-- Pinterest -->
+    <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
+        <img class="share-buttons" src="https://simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" />
+    </a>
+    <!-- Tumblr-->
+    <a href="http://www.tumblr.com/share/link?url=https://s3.amazonaws.com/pi-1/{{image}}&amp;title=My GlimpseWear Photo" target="_blank">
+        <img class="share-buttons" src="https://simplesharebuttons.com/images/somacro/tumblr.png" alt="Tumblr" />
+    </a>
+
 </body>
 </html>

@@ -2,9 +2,8 @@ from django.conf.urls import url
 from . import views       
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^loginPage$', views.loginPage),
     url(r'^createUser$', views.createUser),
-    url(r'^registerPage$', views.registerPage),
+    url(r'^registerLoginPage$', views.registerLoginPage),
     url(r'^login$', views.login),
     url(r'^adminLogin$', views.adminLogin),
     url(r'^userPage$', views.userPage),
