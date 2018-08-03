@@ -15,7 +15,7 @@ picture = True
 filename = "file.wav"
 
 with open("./glimpsecam/camera/numFile.txt") as numFile:
-	int_list = [int(i) for i in file.readline().split()]
+	int_list = [int(i) for i in numFile.readline().split()]
 
 sub.call('/home/pi/pikrellcam/pikrellcam &',shell=True)
 
