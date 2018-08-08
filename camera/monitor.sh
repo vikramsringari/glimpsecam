@@ -1,6 +1,6 @@
 sleep 20
 ifconfig > ip.txt
-aws s3 cp "ip.txt" s3://pi-1/
+aws s3 cp "ip.txt" s3://pi-1/$(hostname)/
 while true
 do
 	gpio -g read 4 > battery.csv
