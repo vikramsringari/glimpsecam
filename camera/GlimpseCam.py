@@ -6,9 +6,8 @@ import subprocess as sub
 import imageEnhance as iE
 import renameFile as rF
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+held = False
 currentState = False
 prevState = False
 picture = True
@@ -17,15 +16,47 @@ filename = "file.wav"
 with open("./glimpsecam/camera/numFile.txt") as numFile:
 	int_list = [int(i) for i in numFile.readline().split()]
 
+sub.call('kill -- -1',shell=True)
 sub.call('/home/pi/pikrellcam/pikrellcam &',shell=True)
+
+#BOOT TEST GOES HERE
+print ("running camera test")
+sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO',shell=True)
+time.sleep(1)
+filename = rF.rename('/home/pi/pikrellcam/www/media/stills', 0)
+time.sleep(30)
+filepath = 's3://pi-1/' + socket.gethostname() + '/images/' + filename
+sub.call('aws s3 ls ' + filepath,shell=True)
+if [[ $? -ne 0 ]]:
+	echo "image file was not uploaded correctly"
+	#INSERT HAPTIC FEEDBACK HERE
+#IT IF REACHES HERE IT PASSED CAMERA
+print ("running video test")
+sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO',shell=True)
+time.sleep(10)
+filename = rF.rename('/home/pi/pikrellcam/www/media/videos', 0)
+time.sleep(60)
+filepath = 's3://pi-1/' + socket.gethostname() + '/videos/' + filename
+sub.call('aws s3 ls ' + filepath,shell=True')
+if [[ $? -ne 0 ]]:
+	echo "video file was not uploaded correctly"
+	#INSERT HAPTIC FEEDBACK HERE
+
+#BACK TO RUNNING
+GPIO.cleanup()
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 while True:
 	currentState = not GPIO.input(12)
 	if (currentState and not prevState):
+		held = True
 		picture = True
 		time.sleep(0.01)
 		endtime = time.time() + 1
 		while time.time() < endtime:
+			if (not currentState):
+				held = False
 			prevState = currentState
 			currentState = not GPIO.input(12)
 			if (currentState and not prevState):
@@ -34,6 +65,13 @@ while True:
 				break
 			prevState = currentState
 			time.sleep(0.01)
+		if (held):
+			endtime = time.time() + 4
+			while time.time() < endtime:
+				if (not currentState):
+					held = False
+			if (held):
+				sub.call('GlimpseCamLowPowerMode.py',shell=True)
 		if picture:
 			sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO',shell=True)
 			time.sleep(1)
@@ -59,3 +97,8 @@ while True:
 			numFile.write(str(int_list[0]) + ' ' + str(int_list[1]))
 	time.sleep(0.01)
 	prevState = currentState
+	
+	
+	
+finally:                   # this block will run no matter how the program exits  
+    GPIO.cleanup()  
