@@ -1,3 +1,4 @@
+set -e
 sleep 20
 ifconfig > ip.txt
 aws s3 cp "ip.txt" s3://pi-1/$(hostname)/
