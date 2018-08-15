@@ -16,32 +16,36 @@ with open("./glimpsecam/camera/numFile.txt") as numFile:
 	int_list = [int(i) for i in numFile.readline().split()]
 
 sub.call('/home/pi/pikrellcam/pikrellcam &',shell=True)
+time.sleep(3)
 
 #BOOT TEST GOES HERE
-print ("running camera test")
-sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO',shell=True)
-time.sleep(1)
-filename = rF.rename('/home/pi/pikrellcam/www/media/stills', 0)
-time.sleep(30)
-filepath = 's3://pi-1/' + socket.gethostname() + '/images/' + filename
-sub.call('aws s3 ls ' + filepath,shell=True)
-if [[ $? -ne 0 ]]:
-	echo "image file was not uploaded correctly"
+
+#print ("running camera test")
+#sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO',shell=True)
+#time.sleep(1)
+#filename = rF.rename('/home/pi/pikrellcam/www/media/stills', 0)
+#time.sleep(30)
+#filepath = 's3://pi-1/' + socket.gethostname() + '/images/' + filename
+#try:
+#	sub.check_output(['aws', 's3', 'ls', filepath], shell=True)
+#except:
+#	print 'image file was not uploaded correctly'
 	#INSERT HAPTIC FEEDBACK HERE
+
 #IT IF REACHES HERE IT PASSED CAMERA
-print ("running video test")
-sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO',shell=True)
-time.sleep(10)
-filename = rF.rename('/home/pi/pikrellcam/www/media/videos', 0)
-time.sleep(60)
-filepath = 's3://pi-1/' + socket.gethostname() + '/videos/' + filename
-sub.call('aws s3 ls ' + filepath,shell=True')
-if [[ $? -ne 0 ]]:
-	echo "video file was not uploaded correctly"
+#print ("running video test")
+#sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO',shell=True)
+#time.sleep(10)
+#filename = rF.rename('/home/pi/pikrellcam/www/media/videos', 0)
+#time.sleep(60)
+#filepath = 's3://pi-1/' + socket.gethostname() + '/videos/' + filename
+#try:
+#	sub.check_output(['aws', 's3', 'ls', filepath], shell=True)
+#except:
+#	print 'video file was not uploaded correctly'
 	#INSERT HAPTIC FEEDBACK HERE
 
 #BACK TO RUNNING
-GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
@@ -75,14 +79,14 @@ while True:
 				sub.call('sudo ifconfig wlan0 down', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/GlimpseCam.py', shell=True)
 		if picture:
-			sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO')
+			sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO', shell=True)
 			time.sleep(1)
 			filename = rF.rename('/home/pi/pikrellcam/www/media/stills',int_list[0])
 			iE.simpleImageEnhance(filename, filename)
 			int_list[0] -= 1
 			time.sleep(0.01)
 		else:
-			sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO')
+			sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO', shell=True)
 			time.sleep(10)
 			filename = rF.rename('/home/pi/pikrellcam/www/media/videos',int_list[1])
 			int_list[1] -= 1
@@ -90,11 +94,11 @@ while True:
 		Upath = socket.gethostname() + '/' + ('images' if picture else 'videos') + '/'
 		with open("UploadTimes.txt","a") as file:
 			start_time = time.time()
-			sub.call('aws s3 cp ' + filename + ' s3://pi-1/' + Upath)
+			sub.call('aws s3 cp ' + filename + ' s3://pi-1/' + Upath, shell=True)
 			file.write("AWS : "+("Picture" if picture else "Video")+" uploaded in %s seconds on " % (time.time() - start_time) + time.strftime("%Y/%m/%d at %H:%M\n"))
-			start_time = time.time()
-			sub.call('/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload ' + filename + ' /' + Upath)
-			file.write("DB  : "+("Picture" if picture else "Video")+" uplaoded in %s seconds on " % (time.time() - start_time) + time.strftime("%Y/%m/%d at %H:%M\n"))
+			#start_time = time.time()
+			#sub.call('/home/pi/Dropbox-Uploader/dropbox_uploader.sh upload ' + filename + ' /' + Upath, sub.call)
+			#file.write("DB  : "+("Picture" if picture else "Video")+" uplaoded in %s seconds on " % (time.time() - start_time) + time.strftime("%Y/%m/%d at %H:%M\n"))
 		with open("./glimpsecam/camera/numFile.txt","w") as numFile:
 			numFile.write(str(int_list[0]) + ' ' + str(int_list[1]))
 	time.sleep(0.01)
