@@ -32,7 +32,7 @@ time.sleep(3)
 #	print 'image file was not uploaded correctly'
 	#INSERT HAPTIC FEEDBACK HERE
 
-#IT IF REACHES HERE IT PASSED CAMERA
+#IF IT REACHES HERE IT PASSED CAMERA
 #print ("running video test")
 #sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO',shell=True)
 #time.sleep(10)
