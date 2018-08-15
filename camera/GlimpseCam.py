@@ -6,8 +6,6 @@ import subprocess as sub
 import imageEnhance as iE
 import renameFile as rF
 
-
-held = False
 currentState = False
 prevState = False
 picture = True
@@ -17,7 +15,6 @@ held = False
 with open("./glimpsecam/camera/numFile.txt") as numFile:
 	int_list = [int(i) for i in numFile.readline().split()]
 
-sub.call('kill -- -1',shell=True)
 sub.call('/home/pi/pikrellcam/pikrellcam &',shell=True)
 
 #BOOT TEST GOES HERE
@@ -66,26 +63,17 @@ while True:
 				break
 			prevState = currentState
 			time.sleep(0.01)
-<<<<<<< HEAD
 		if held:
-=======
-		if (held):
->>>>>>> 13b5bb0a2ef0570c2f67e532c015816847b6eb2e
 			endtime = time.time() + 4
 			while time.time() < endtime:
 				if (not currentState):
 					held = False
-<<<<<<< HEAD
 			if held:
 				GPIO.cleanup()
 				sub.call('python ./glimpsecam/camera/GlimpseCamLowPowerMode.py &', shell=True)
 				sub.call('pkill -f ./pikrellcam/pikrellcam', shell=True)
 				sub.call('sudo ifconfig wlan0 down', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/GlimpseCam.py', shell=True)
-=======
-			if (held):
-				sub.call('GlimpseCamLowPowerMode.py',shell=True)
->>>>>>> 13b5bb0a2ef0570c2f67e532c015816847b6eb2e
 		if picture:
 			sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO')
 			time.sleep(1)
@@ -111,8 +99,3 @@ while True:
 			numFile.write(str(int_list[0]) + ' ' + str(int_list[1]))
 	time.sleep(0.01)
 	prevState = currentState
-	
-	
-	
-finally:                   # this block will run no matter how the program exits  
-    GPIO.cleanup()  
