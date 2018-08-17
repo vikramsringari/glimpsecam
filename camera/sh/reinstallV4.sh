@@ -96,7 +96,7 @@ if [ $ANSWER -eq 5 -o $ANSWER -eq 7 ]; then
 	chmod u+rwx dropbox_uploader.sh
 	echo "-------"
 	echo "Note:"
-	echo "Access Token is 5YWMfG1RFfAAAAAAAAAAr5bEXrgq3vdg8U-nZA4b8CZOwWiwqPz2Wr7JvQ2Jyf1z"
+	echo "Access Token is "
 	echo "-------"
 	./dropbox_uploader.sh
 fi
