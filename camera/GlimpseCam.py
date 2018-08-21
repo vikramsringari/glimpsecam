@@ -48,6 +48,10 @@ time.sleep(3)
 #BACK TO RUNNING
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(5, GPIO.OUT)
+GPIO.setup(5, GPIO.HIGH)
+time.sleep(1)
+GPIO.output(5, GPIO.LOW)
 
 while True:
 	currentState = not GPIO.input(12)
@@ -73,6 +77,9 @@ while True:
 				if (not currentState):
 					held = False
 			if held:
+				GPIO.output(5, GPIO.HIGH)
+				time.sleep(1)
+				GPIO.output(5, GPIO.LOW)
 				GPIO.cleanup()
 				sub.call('python ./glimpsecam/camera/GlimpseCamLowPowerMode.py &', shell=True)
 				sub.call('pkill -f ./pikrellcam/pikrellcam', shell=True)
