@@ -1,8 +1,8 @@
 import geocoder, tinys3, socket, pyinotify, os, time, threading
 import imageEnhance as iE
 
-access = 'AKIAJ5KN4RZJIEUKS73A'
-secret = '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'
+access = ''
+secret = ''
 
 with open("./glimpsecam/camera/numFile.txt") as numFile:
 	int_list = [int(i) for i in numFile.readline().split()]
