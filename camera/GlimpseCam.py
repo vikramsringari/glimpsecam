@@ -10,7 +10,7 @@ picture = True
 filename = "file.wav"
 held = False
 
-sub.call('python /home/pi/glimpsecam/camera/upload.py &',shell=True)
+sub.call('python /home/pi/glimpsecam/camera/uploadFile.py &',shell=True)
 sub.call('/home/pi/pikrellcam/pikrellcam &',shell=True)
 time.sleep(3)
 
