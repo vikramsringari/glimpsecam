@@ -1,4 +1,4 @@
-import geocoder, tinys3, socket, pyinotify, os, time, threading
+import tinys3, socket, pyinotify, os, time, threading
 import imageEnhance as iE
 
 access = ''
@@ -35,10 +35,9 @@ class EventHandler(pyinotify.ProcessEvent):
 			#print 'image was created: ', event.pathname
 			time.sleep(1)
 			iE.simpleImageEnhance(event.pathname, event.pathname)
+			#print 'image was enhanced: ', event.pathname
 			filename = os.path.basename(event.pathname)
 			time.sleep(1)
-			#print 'filename: ', filename
-			#print 'image was enhanced: ', event.pathname
 			os.rename(event.pathname, path + '/%05d' % int_list[0] + filename)
 			int_list[0] -= 1
 		elif type == '.mp4':
@@ -58,6 +57,3 @@ wdd = watchman.add_watch('pikrellcam/media/videos', mask, rec=True)
 wss = watchman.add_watch('pikrellcam/media/stills', mask, rec=True)
 
 notifier.loop()
-
-#g = geocoder.ip('me')
-#print 'lat: ' + str(g.latlng[0]) + '\nlng: ' + str(g.latlng[1])
