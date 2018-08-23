@@ -100,7 +100,11 @@ if [ $ANSWER -eq 5 -o $ANSWER -eq 7 ]; then
 	echo "-------"
 	./dropbox_uploader.sh
 fi
+# Install file upload dependencies
+cd /home/pi
+pip install geocoder
+pip install tinys3
+sudo apt-get install python-setuptools
+sudo easy_install pyinotify
 
 echo "Congradulations! The Setup is now complete!"
-
- 
