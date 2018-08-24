@@ -81,7 +81,7 @@ while True:
 				sub.call('python ./glimpsecam/camera/GlimpseCamLowPowerMode.py &', shell=True)
 				sub.call('pkill -f ./pikrellcam/pikrellcam', shell=True)
 				sub.call('sudo ifconfig wlan0 down', shell=True)
-				sub.call('pkill -f ./glimpsecam/camera/upload.py', shell=True)
+				sub.call('pkill -f ./glimpsecam/camera/uploadFile.py', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/GlimpseCam.py', shell=True)
 		if picture:
 			sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO', shell=True)
