@@ -80,7 +80,7 @@ while True:
 				sub.call("kill $(ps | grep bash | awk '{print $1}')",shell=True)
 				sub.call('python ./glimpsecam/camera/GlimpseCamLowPowerMode.py &', shell=True)
 				sub.call('pkill -f ./pikrellcam/pikrellcam', shell=True)
-				sub.call('sudo ifconfig wlan0 down', shell=True)
+				#sub.call('sudo ifconfig wlan0 down', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/uploadFile.py', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/GlimpseCam.py', shell=True)
 		if picture:
