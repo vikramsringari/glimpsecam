@@ -16,7 +16,7 @@ mask = pyinotify.IN_MOVED_TO | pyinotify.IN_CREATE
 class EventHandler(pyinotify.ProcessEvent):
 	def process_IN_MOVED_TO(self, event):
 		def __upload():
-			type = event.pathname[70:74]
+			type = event.pathname[-4:]
 			filename = os.path.basename(event.pathname)
 			with open(event.pathname, 'rb') as f:
 				try:
@@ -29,7 +29,7 @@ class EventHandler(pyinotify.ProcessEvent):
 		threading.Thread(target=__upload, args=[]).start()
 
 	def process_IN_CREATE(self, event):
-		type = event.pathname[65:69]
+		type = event.pathname[-4:]
 		path = os.path.dirname(event.pathname)
 		if type == '.jpg':
 			#print 'image was created: ', event.pathname
