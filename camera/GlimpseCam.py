@@ -44,10 +44,14 @@ time.sleep(3)
 #BACK TO RUNNING
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-#GPIO.setup(5, GPIO.OUT)
-#GPIO.output(5, GPIO.HIGH)
-#time.sleep(1)
-#GPIO.output(5, GPIO.LOW)
+GPIO.setup(5, GPIO.OUT)
+GPIO.output(5, GPIO.HIGH)
+time.sleep(0.5)
+GPIO.output(5, GPIO.LOW)
+time.sleep(0.5)
+GPIO.output(5, GPIO.HIGH)
+time.sleep(0.5)
+GPIO.output(5, GPIO.LOW)
 
 while True:
 	currentState = not GPIO.input(12)
@@ -73,14 +77,10 @@ while True:
 				if (not currentState):
 					held = False
 			if held:
-				#GPIO.output(5, GPIO.HIGH)
-				#time.sleep(1)
-				#GPIO.output(5, GPIO.LOW)
 				GPIO.cleanup()
-				sub.call("kill $(ps | grep bash | awk '{print $1}')",shell=True)
+				#sub.call("kill $(ps | grep bash | awk '{print $1}')",shell=True)
 				sub.call('python ./glimpsecam/camera/GlimpseCamLowPowerMode.py &', shell=True)
 				sub.call('pkill -f ./pikrellcam/pikrellcam', shell=True)
-				#sub.call('sudo ifconfig wlan0 down', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/uploadFile.py', shell=True)
 				sub.call('pkill -f ./glimpsecam/camera/GlimpseCam.py', shell=True)
 		if picture:
