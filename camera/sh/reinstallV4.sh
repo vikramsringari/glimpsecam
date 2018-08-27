@@ -51,7 +51,7 @@ if [ $ANSWER -eq 2 -o $ANSWER -eq 6 -o $ANSWER -eq 7 ]; then
 	cd pikrellcam
 	chmod u+rwx install-pikrellcam.sh
 	./install-pikrellcam.sh
-	sudo mv ./glimpsecam/camera/sh/pikrellcam.conf ./.pikrellcam/pikrellcam.conf
+	sudo mv /home/pi/glimpsecam/camera/sh/pikrellcam.conf /home/pi/.pikrellcam/pikrellcam.conf
 fi
 
 # Install AWS CLI
