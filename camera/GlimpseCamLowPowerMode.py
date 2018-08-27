@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time, datetime, os, glob, socket, tinys3, threading, socket
 from shutil import copyfile
 import RPi.GPIO as GPIO
