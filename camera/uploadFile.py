@@ -1,4 +1,4 @@
-import tinys3, socket, pyinotify, os, time, threading
+import tinys3, socket, pyinotify, os, time, threading, subprocess
 import imageEnhance as iE
 
 access = ''
@@ -13,6 +13,9 @@ watchman = pyinotify.WatchManager()
 
 mask = pyinotify.IN_MOVED_TO | pyinotify.IN_CREATE
 
+class NoWiFiException(Exception):
+	pass
+
 class EventHandler(pyinotify.ProcessEvent):
 	def process_IN_MOVED_TO(self, event):
 		def __upload():
@@ -20,6 +23,8 @@ class EventHandler(pyinotify.ProcessEvent):
 			filename = os.path.basename(event.pathname)
 			with open(event.pathname, 'rb') as f:
 				try:
+					if subprocess.check_output(['hostname','-I']).isspace():
+						raise NoWiFiException
 					conn.upload(socket.gethostname() + '/' + ('images' if (type == '.jpg') else 'videos') + '/' + filename, f)
 					print 'success'
 				except:
