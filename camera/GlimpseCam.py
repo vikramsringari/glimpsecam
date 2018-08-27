@@ -85,9 +85,19 @@ while True:
 				sub.call('pkill -f ./glimpsecam/camera/GlimpseCam.py', shell=True)
 		if picture:
 			sub.call('echo "still" > /home/pi/pikrellcam/www/FIFO', shell=True)
+			GPIO.output(5, GPIO.HIGH)
+			time.sleep(0.5)
+			GPIO.output(5, GPIO.LOW)
 			time.sleep(1)
 		else:
 			sub.call('echo "record on 5 5" > /home/pi/pikrellcam/www/FIFO', shell=True)
+			GPIO.output(5, GPIO.HIGH)
+			time.sleep(0.25)
+			GPIO.output(5, GPIO.LOW)
+			time.sleep(0.25)
+			GPIO.output(5, GPIO.HIGH)
+			time.sleep(0.25)
+			GPIO.output(5, GPIO.LOW)
 			time.sleep(10)
 	time.sleep(0.01)
 	prevState = currentState
