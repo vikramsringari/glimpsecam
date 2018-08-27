@@ -43,9 +43,8 @@ elif [ -e boot2.zth ]; then
 	rpi-source --skip-gcc
 	sudo mount -t debugfs debugs /sys/kernel/debug
 	git clone https://github.com/PaulCreaser/rpi-i2s-audio
-	cd rpi-i2s-audio
-	sed -r "s/\<\.platform = "3f203000.i2s"/\.platform = "20203000.i2s"/g" my_loader.c
-	sed -r "s/\<\.name = "3f203000.i2s"/\.name = "20203000.i2s"/g" my_loader.c
+	cd rpi-i2s-audio	
+	sed -i "s/3f203000/20203000/g" my_loader.c
 	make -C /lib/modules/$(uname -r )/build M=$(pwd) modules
 	sudo insmod my_loader.ko
 	sudo cp my_loader.ko /lib/modules/$(uname -r)
