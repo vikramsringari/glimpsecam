@@ -28,7 +28,7 @@ class EventHandler(pyinotify.ProcessEvent):
 					conn.upload(socket.gethostname() + '/' + ('images' if (type == '.jpg') else 'videos') + '/' + filename, f)
 					print 'success'
 				except:
-					with open('/home/pi/FilesToUpload.txt','a') as file:
+					with open('/home/pi/newFiles.txt','a') as file:
 						file.write(event.pathname+'\n')
 					print 'failure'
 		threading.Thread(target=__upload, args=[]).start()
